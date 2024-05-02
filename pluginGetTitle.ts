@@ -7,7 +7,7 @@ export function getTitleTag(base: Base) {
       let texContent = base.options.texContent;
 
       const firstPart = texContent.split(String.raw`\title{`)[1]
-      
+
       return firstPart.split('}')[0]
     }
   }

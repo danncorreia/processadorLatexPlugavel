@@ -7,6 +7,5 @@ export const getTexFileContent = async (path: string) => {
     fileContent = await fs.readFileSync('./temp/convertedTex.txt', 'utf8');
 
     await fs.unlinkSync('./temp/convertedTex.txt');
-
     return fileContent;
   }

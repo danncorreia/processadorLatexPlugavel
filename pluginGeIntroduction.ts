@@ -3,7 +3,7 @@ import { getTexFileContent } from "./utils";
 
 export function getIntroduction(base: Base) {
   return {
-    getIntroduction: async () => {
+    getIntroduction: () => {
         if (!base.options.texContent) return;
         let texContent = base.options.texContent;
 
