@@ -20,6 +20,12 @@ app.get("/introduction", async (req: Request, res: Response) => {
   res.send(myBase.getIntroduction());
 });
 
+app.get("/availabilityTest", async (req: Request, res: Response) => {
+  await new Promise(resolve => setTimeout(resolve, 10000));
+
+  res.send('Test completed!');
+});
+
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });

@@ -3,7 +3,7 @@ import * as fs from "fs";
 export const getTexFileContent = async (path: string) => {
     let fileContent: string;
 
-    await fs.mkdirSync('./temp');
+    if (!await fs.existsSync('./temp')) await fs.mkdirSync('./temp');
 
     await fs.copyFileSync(path, `./temp/convertedTex.txt`);
     fileContent = await fs.readFileSync('./temp/convertedTex.txt', 'utf8');
