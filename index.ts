@@ -17,25 +17,18 @@ const client = new MongoClient(uri, {
 
 app.get("/toProcessArticle", async (req: Request, res: Response) => {
 
-  getArticlesFromDrive();
-  // const myBase = new MyBase({
-  //   texContent: await getTexFileContent('./latex/test article/main.tex'),
-  // });
-  //
-  // res.send(myBase.getTitleTag());
-});
-
-app.get("/introduction", async (req: Request, res: Response) => {
-  const myBase = new MyBase({})
-
   processTexFilesInLatexFolders().then((listTexContents) => {
-    listTexContents.map((texContent) => {
+    listTexContents.map( async (texContent) => {
       const myBase = new MyBase({
         texContent: texContent,
+        mongoDBClient: client
       });
+      await myBase.getSummary();
+      await myBase.getTitle();
+      // await myBase.getConclusion();
     });
-  }).finally(() => {
-    res.send(myBase.getIntroduction());
+  }).catch((e) => {res.send(e)}).finally(() => {
+      res.send('Finished')
   });
 });
 
@@ -57,6 +50,6 @@ async function run() {
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+    // await client.close();
   }
 }
